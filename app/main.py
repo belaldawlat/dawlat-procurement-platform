@@ -4,12 +4,25 @@ from database.setup import create_database
 from services.auth_service import ensure_admin_user
 from views import (
     ai_assistant,
+    customers,
     dashboard,
+    freight_customs,
+    inventory,
+    landed_cost,
     login,
+    market_opportunities,
+    opportunity_dashboard,
+    partners,
+    products,
+    quotation_comparison,
+    rfqs,
     settings,
+    shipments,
+    supplier_discovery,
     supplier_quotations,
     suppliers,
     users,
+    warehouses_3pl,
 )
 
 
@@ -30,18 +43,30 @@ if not st.session_state["authenticated"]:
     login.show_login()
     st.stop()
 
-st.sidebar.title("🌍 Dawlat Procurement Platform")
-st.sidebar.caption("Dawlat Global Imports & Trading")
+st.sidebar.title(
+    "🌍 Dawlat Procurement Platform"
+)
+
+st.sidebar.caption(
+    "Dawlat Global Imports & Trading"
+)
+
 st.sidebar.markdown("---")
 
 st.sidebar.write(
-    f"Signed in as **{st.session_state.get('full_name', '')}**"
-)
-st.sidebar.caption(
-    f"Role: {st.session_state.get('role', 'User')}"
+    f"Signed in as "
+    f"**{st.session_state.get('full_name', '')}**"
 )
 
-if st.sidebar.button("Log Out", width="stretch"):
+st.sidebar.caption(
+    f"Role: "
+    f"{st.session_state.get('role', 'User')}"
+)
+
+if st.sidebar.button(
+    "Log Out",
+    width="stretch",
+):
     st.session_state.clear()
     st.rerun()
 
@@ -49,28 +74,36 @@ st.sidebar.markdown("---")
 
 menu_items = [
     "🏠 Dashboard",
-    "🤖 AI Assistant",
+    "📊 Opportunity Dashboard",
+    "🧠 Market Intelligence",
+    "🌍 Global Discovery",
+    "🌐 Global Partners",
     "🏢 Suppliers",
-    "🌍 Supplier Discovery",
+    "👥 Customers",
+    "📦 Products",
+    "📨 RFQs",
     "📄 Supplier Quotations",
+    "⚖️ Quotation Comparison",
     "💰 Landed Cost",
     "🚢 Freight & Customs",
     "🏭 Warehouses & 3PL",
     "📦 Inventory",
     "🚚 Shipments",
-    "👥 Customers",
     "📝 Sales Quotations",
     "🛒 Orders",
     "🧾 Invoices",
     "💳 Payments",
-    "📧 Email Generator",
     "📁 Documents",
+    "📧 Email Generator",
+    "🤖 AI Assistant",
     "📈 Analytics",
     "⚙️ Settings",
 ]
 
 if st.session_state.get("role") == "Admin":
-    menu_items.append("👥 User Management")
+    menu_items.append(
+        "👥 User Management"
+    )
 
 menu = st.sidebar.radio(
     "Navigation",
@@ -80,14 +113,53 @@ menu = st.sidebar.radio(
 if menu == "🏠 Dashboard":
     dashboard.show()
 
-elif menu == "🤖 AI Assistant":
-    ai_assistant.show()
+elif menu == "📊 Opportunity Dashboard":
+    opportunity_dashboard.show()
+
+elif menu == "🧠 Market Intelligence":
+    market_opportunities.show()
+
+elif menu == "🌍 Global Discovery":
+    supplier_discovery.show()
+
+elif menu == "🌐 Global Partners":
+    partners.show()
 
 elif menu == "🏢 Suppliers":
     suppliers.show()
 
+elif menu == "👥 Customers":
+    customers.show()
+
+elif menu == "📦 Products":
+    products.show()
+
+elif menu == "📨 RFQs":
+    rfqs.show()
+
 elif menu == "📄 Supplier Quotations":
     supplier_quotations.show()
+
+elif menu == "⚖️ Quotation Comparison":
+    quotation_comparison.show()
+
+elif menu == "💰 Landed Cost":
+    landed_cost.show()
+
+elif menu == "🚢 Freight & Customs":
+    freight_customs.show()
+
+elif menu == "🏭 Warehouses & 3PL":
+    warehouses_3pl.show()
+
+elif menu == "📦 Inventory":
+    inventory.show()
+
+elif menu == "🚚 Shipments":
+    shipments.show()
+
+elif menu == "🤖 AI Assistant":
+    ai_assistant.show()
 
 elif menu == "⚙️ Settings":
     settings.show()
@@ -97,4 +169,8 @@ elif menu == "👥 User Management":
 
 else:
     st.title(menu)
-    st.info("This module will be connected in a later milestone.")
+
+    st.info(
+        "This module will be connected "
+        "in a later phase."
+    )
