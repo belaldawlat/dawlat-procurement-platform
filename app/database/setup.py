@@ -1,4 +1,5 @@
 from database.connection import get_connection
+from database.shipment_schema import create_shipment_tables
 
 
 def create_database() -> None:
@@ -346,6 +347,8 @@ def create_database() -> None:
         )
 
         connection.commit()
+
+    create_shipment_tables()
 
 
 if __name__ == "__main__":

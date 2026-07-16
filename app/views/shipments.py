@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 
+import pandas as pd
 import streamlit as st
 
 from models.shipment import Shipment, ShipmentMilestone
@@ -13,9 +14,17 @@ from services.shipment_service import (
     delete_shipment,
     ensure_shipment_tables,
     generate_shipment_number,
+    add_shipment_tracking_event,
+    get_enterprise_shipment,
+    get_shipment_analytics,
+    get_shipment_documents,
     get_shipment_milestones,
+    get_shipment_timeline,
+    get_shipment_tracking_events,
     get_shipments,
+    update_shipment_document,
     update_shipment_status,
+    update_shipment_timeline_stage,
 )
 from services.supplier_quote_service import (
     get_supplier_quotes,
@@ -171,24 +180,27 @@ MILESTONE_TYPES = [
 
 def show() -> None:
     ensure_shipment_tables()
+    _apply_enterprise_styles()
 
-    st.title("🚚 Shipment Control & Tracking")
+    st.title("🚢 Global Shipment Command Centre")
     st.caption(
-        "Plan and track shipments from supplier pickup through "
-        "international transport, customs, biosecurity, warehouse "
-        "delivery and inventory receipt."
+        "Control international shipments, customs, documents, tracking, "
+        "costs, delivery risk and operational performance from one workspace."
     )
 
-    overview_tab, create_tab, register_tab, milestone_tab = st.tabs(
+    dashboard_tab, create_tab, register_tab, timeline_tab, documents_tab, tracking_tab, analytics_tab = st.tabs(
         [
-            "📊 Shipment Overview",
+            "📊 Dashboard",
             "➕ Create Shipment",
-            "📋 Shipment Register",
-            "🧭 Milestones",
+            "📋 Register",
+            "🧭 Timeline",
+            "📄 Documents",
+            "📍 Tracking",
+            "📈 Analytics",
         ]
     )
 
-    with overview_tab:
+    with dashboard_tab:
         show_overview()
 
     with create_tab:
@@ -197,133 +209,199 @@ def show() -> None:
     with register_tab:
         show_register()
 
-    with milestone_tab:
+    with timeline_tab:
         show_milestones()
+
+    with documents_tab:
+        show_documents()
+
+    with tracking_tab:
+        show_tracking()
+
+    with analytics_tab:
+        show_analytics()
 
 
 def show_overview() -> None:
     shipments = get_shipments()
 
+    active = [
+        item for item in shipments
+        if item.status not in {"Delivered", "Completed", "Cancelled"}
+    ]
+    in_transit = [
+        item for item in shipments
+        if item.status in {"Picked Up", "In Transit", "Arrived at Port"}
+    ]
+    delivered = [
+        item for item in shipments
+        if item.status in {"Delivered", "Completed"}
+    ]
+    delayed = [
+        item for item in shipments
+        if item.status == "Delayed" or item.delay_reason or item.is_overdue
+    ]
+    customs = [
+        item for item in shipments
+        if item.status in {
+            "Customs Clearance",
+            "Biosecurity Hold",
+            "Inspection Hold",
+        }
+        or item.customs_status in {
+            "Documents Submitted",
+            "Under Review",
+            "Additional Information Required",
+            "Inspection Required",
+            "On Hold",
+        }
+    ]
+    total_value = sum(item.total_value for item in shipments)
+
+    st.subheader("Executive Shipment Dashboard")
+    cols = st.columns(6)
+    metrics = [
+        ("Active Shipments", len(active)),
+        ("In Transit", len(in_transit)),
+        ("Delivered", len(delivered)),
+        ("Delayed / Overdue", len(delayed)),
+        ("Customs Clearance", len(customs)),
+        ("Total Shipment Value", f"AUD {total_value:,.0f}"),
+    ]
+    for column, (label, value) in zip(cols, metrics):
+        column.metric(label, value)
+
     if not shipments:
-        st.info(
-            "No shipments exist yet. Create the first shipment."
+        st.info("No shipments exist yet.")
+        st.markdown("### ST25 Premium Rice Test Shipment")
+        st.write(
+            "Create a realistic Vietnam-to-Melbourne shipment to test "
+            "the dashboard, register, timeline, documents, tracking and analytics."
         )
+        if st.button(
+            "Create ST25 Test Shipment",
+            type="primary",
+            use_container_width=True,
+            key="dashboard_create_st25",
+        ):
+            shipment_id, shipment_number = _create_st25_test_shipment()
+            st.success(
+                f"ST25 test shipment created: {shipment_number} "
+                f"(ID {shipment_id})."
+            )
+            st.rerun()
         return
 
-    active_shipments = [
-        shipment
-        for shipment in shipments
-        if shipment.status
-        not in {
-            "Delivered",
-            "Completed",
-            "Cancelled",
-        }
-    ]
+    alert_col, action_col = st.columns([2, 1])
+    with alert_col:
+        if delayed:
+            st.error(
+                f"{len(delayed)} shipment(s) require delay or ETA attention."
+            )
+        elif customs:
+            st.warning(
+                f"{len(customs)} shipment(s) are in customs, biosecurity "
+                "or inspection workflow."
+            )
+        else:
+            st.success("No critical shipment exceptions detected.")
 
-    overdue_shipments = [
-        shipment
-        for shipment in shipments
-        if shipment.is_overdue
-    ]
+    with action_col:
+        if not any(
+            "ST25" in item.product_name.upper()
+            and "VIETNAM" in item.origin_country.upper()
+            for item in shipments
+        ):
+            if st.button(
+                "Create ST25 Test Shipment",
+                use_container_width=True,
+                key="dashboard_create_st25_existing",
+            ):
+                shipment_id, shipment_number = _create_st25_test_shipment()
+                st.success(
+                    f"Created {shipment_number} (ID {shipment_id})."
+                )
+                st.rerun()
 
-    delayed_shipments = [
-        shipment
-        for shipment in shipments
-        if shipment.status == "Delayed"
-        or shipment.delay_reason
-    ]
-
-    delivered_shipments = [
-        shipment
-        for shipment in shipments
-        if shipment.status
-        in {
-            "Delivered",
-            "Completed",
-        }
-    ]
-
-    total_value = sum(
-        shipment.total_value
-        for shipment in shipments
-    )
-
-    col1, col2, col3, col4, col5 = st.columns(5)
-
-    col1.metric(
-        "Total Shipments",
-        len(shipments),
-    )
-
-    col2.metric(
-        "Active",
-        len(active_shipments),
-    )
-
-    col3.metric(
-        "Overdue",
-        len(overdue_shipments),
-    )
-
-    col4.metric(
-        "Delivered",
-        len(delivered_shipments),
-    )
-
-    col5.metric(
-        "Total Value",
-        f"AUD {total_value:,.2f}",
-    )
-
-    if overdue_shipments:
-        st.error(
-            f"{len(overdue_shipments)} shipment(s) are past "
-            "their estimated arrival date."
-        )
-
-    if delayed_shipments:
-        st.warning(
-            f"{len(delayed_shipments)} shipment(s) have delays "
-            "or recorded delay reasons."
-        )
-
-    st.markdown("---")
-    st.subheader("Active Shipment Pipeline")
-
-    if not active_shipments:
-        st.success("No active shipments.")
-        return
-
+    st.markdown("### Active Shipment Pipeline")
+    pipeline = active if active else shipments[:10]
     st.dataframe(
         [
             {
-                "Shipment": shipment.shipment_number,
-                "Product": shipment.product_name,
-                "Supplier": shipment.supplier_name,
-                "Mode": shipment.transport_mode,
-                "Origin": shipment.origin_location,
-                "Destination": shipment.destination_location,
-                "ETD": shipment.etd or "",
-                "ETA": shipment.eta or "",
-                "Status": shipment.status,
-                "Customs": shipment.customs_status,
-                "Documents": (
-                    f"{shipment.document_completion_percent}%"
-                ),
-                "Risk": shipment.risk_level,
-                "Priority": shipment.priority,
-                "Overdue": (
-                    "Yes"
-                    if shipment.is_overdue
-                    else "No"
-                ),
+                "Shipment": item.shipment_number,
+                "Product": item.product_name,
+                "Supplier": item.supplier_name,
+                "Route": f"{item.origin_location} → {item.destination_location}",
+                "Mode": item.transport_mode,
+                "ETD": item.etd or "",
+                "ETA": item.eta or "",
+                "Status": item.status,
+                "Customs": item.customs_status,
+                "Documents": f"{item.document_completion_percent}%",
+                "Risk": item.risk_level,
+                "Priority": item.priority,
+                "Overdue": "Yes" if item.is_overdue else "No",
+                "Value": item.total_value,
             }
-            for shipment in active_shipments
+            for item in pipeline
         ],
         hide_index=True,
-        width="stretch",
+        use_container_width=True,
     )
+
+    left, right = st.columns(2)
+
+    with left:
+        st.markdown("### Upcoming Arrivals")
+        arrivals = sorted(
+            [
+                item for item in active
+                if item.eta
+            ],
+            key=lambda item: item.eta or "9999-12-31",
+        )[:8]
+        if arrivals:
+            st.dataframe(
+                [
+                    {
+                        "Shipment": item.shipment_number,
+                        "ETA": item.eta,
+                        "Destination": item.destination_location,
+                        "Status": item.status,
+                        "Priority": item.priority,
+                    }
+                    for item in arrivals
+                ],
+                hide_index=True,
+                use_container_width=True,
+            )
+        else:
+            st.info("No upcoming arrivals recorded.")
+
+    with right:
+        st.markdown("### Operational Exceptions")
+        exceptions = delayed + [
+            item for item in customs if item not in delayed
+        ]
+        if exceptions:
+            st.dataframe(
+                [
+                    {
+                        "Shipment": item.shipment_number,
+                        "Issue": item.delay_reason
+                        or item.customs_status
+                        or item.status,
+                        "ETA": item.eta or "",
+                        "Risk": item.risk_level,
+                        "Priority": item.priority,
+                    }
+                    for item in exceptions[:8]
+                ],
+                hide_index=True,
+                use_container_width=True,
+            )
+        else:
+            st.success("No operational exceptions.")
 
 
 def show_create_shipment() -> None:
@@ -1568,3 +1646,540 @@ def show_milestones() -> None:
         )
 
         st.rerun()
+def show_documents() -> None:
+    st.subheader("Shipment Document Control")
+    shipment = _select_shipment("documents_shipment")
+    if shipment is None:
+        return
+
+    documents = get_shipment_documents(shipment.id)
+    if not documents:
+        st.info("No document checklist is available.")
+        return
+
+    required = [item for item in documents if item.get("is_required")]
+    received = [item for item in required if item.get("is_received")]
+    verified = [
+        item for item in required
+        if item.get("verification_status") == "Verified"
+    ]
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Required", len(required))
+    col2.metric("Received", len(received))
+    col3.metric("Verified", len(verified))
+    completion = (
+        round(len(verified) / len(required) * 100)
+        if required else 100
+    )
+    col4.metric("Verified Completion", f"{completion}%")
+
+    st.dataframe(
+        [
+            {
+                "ID": item["id"],
+                "Document": item["document_type"],
+                "Number": item.get("document_number") or "",
+                "Received": "Yes" if item.get("is_received") else "No",
+                "Verification": item.get("verification_status") or "",
+                "Issuer": item.get("issuing_authority") or "",
+                "Issued": item.get("issued_date") or "",
+                "Expiry": item.get("expiry_date") or "",
+                "File": item.get("file_name") or "",
+                "Notes": item.get("notes") or "",
+            }
+            for item in documents
+        ],
+        hide_index=True,
+        use_container_width=True,
+    )
+
+    selected = st.selectbox(
+        "Select document to update",
+        documents,
+        format_func=lambda item: item["document_type"],
+        key="document_record",
+    )
+
+    with st.form(f"document_update_{selected['id']}"):
+        col1, col2 = st.columns(2)
+        with col1:
+            document_number = st.text_input(
+                "Document number",
+                value=selected.get("document_number") or "",
+            )
+            issuing_authority = st.text_input(
+                "Issuing authority",
+                value=selected.get("issuing_authority") or "",
+            )
+            issued_date = st.text_input(
+                "Issued date (YYYY-MM-DD)",
+                value=selected.get("issued_date") or "",
+            )
+        with col2:
+            expiry_date = st.text_input(
+                "Expiry date (YYYY-MM-DD)",
+                value=selected.get("expiry_date") or "",
+            )
+            verification_status = st.selectbox(
+                "Verification status",
+                [
+                    "Pending",
+                    "Verified",
+                    "Rejected",
+                    "Expired",
+                    "Not Required",
+                ],
+                index=_safe_index(
+                    [
+                        "Pending",
+                        "Verified",
+                        "Rejected",
+                        "Expired",
+                        "Not Required",
+                    ],
+                    selected.get("verification_status"),
+                ),
+            )
+            is_received = st.checkbox(
+                "Document received",
+                value=bool(selected.get("is_received")),
+            )
+
+        notes = st.text_area(
+            "Document notes",
+            value=selected.get("notes") or "",
+        )
+
+        submitted = st.form_submit_button(
+            "Update Document",
+            type="primary",
+            use_container_width=True,
+        )
+
+    if submitted:
+        update_shipment_document(
+            selected["id"],
+            {
+                "document_number": document_number.strip() or None,
+                "issuing_authority": issuing_authority.strip() or None,
+                "issued_date": issued_date.strip() or None,
+                "expiry_date": expiry_date.strip() or None,
+                "verification_status": verification_status,
+                "is_received": int(is_received),
+                "notes": notes.strip() or None,
+            },
+        )
+        st.success("Document updated.")
+        st.rerun()
+
+
+def show_tracking() -> None:
+    st.subheader("Shipment Tracking Centre")
+    shipment = _select_shipment("tracking_shipment")
+    if shipment is None:
+        return
+
+    enterprise = get_enterprise_shipment(shipment.id) or {}
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Status", shipment.status)
+    col2.metric(
+        "Current Location",
+        enterprise.get("current_location")
+        or shipment.origin_location,
+    )
+    col3.metric("Vessel", shipment.vessel_name or "Not assigned")
+    col4.metric("ETA", shipment.eta or "Not recorded")
+
+    events = get_shipment_tracking_events(shipment.id)
+    if events:
+        st.dataframe(
+            [
+                {
+                    "Time": item.get("event_time") or "",
+                    "Event": item.get("event_name") or "",
+                    "Location": item.get("location_name") or "",
+                    "Country": item.get("country") or "",
+                    "Source": item.get("source_type") or "",
+                    "Vessel": item.get("vessel_name") or "",
+                    "Voyage": item.get("voyage_number") or "",
+                    "Exception": "Yes" if item.get("is_exception") else "No",
+                    "Description": item.get("event_description") or "",
+                }
+                for item in events
+            ],
+            hide_index=True,
+            use_container_width=True,
+        )
+    else:
+        st.info("No tracking events recorded.")
+
+    st.markdown("### Add Tracking Event")
+    with st.form(f"tracking_event_{shipment.id}"):
+        col1, col2 = st.columns(2)
+        with col1:
+            event_name = st.text_input("Event name *")
+            event_time = st.text_input(
+                "Event time",
+                value=pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
+            )
+            location_name = st.text_input("Location")
+            country = st.text_input("Country")
+        with col2:
+            source_type = st.selectbox(
+                "Source",
+                [
+                    "Manual",
+                    "Shipping Line",
+                    "Carrier API",
+                    "Port",
+                    "Customs",
+                    "Warehouse",
+                    "System",
+                ],
+            )
+            vessel_name = st.text_input(
+                "Vessel",
+                value=shipment.vessel_name or "",
+            )
+            voyage_number = st.text_input(
+                "Voyage",
+                value=shipment.voyage_number or "",
+            )
+            is_exception = st.checkbox("Exception or delay event")
+
+        description = st.text_area("Description")
+        exception_reason = st.text_area("Exception reason")
+        submitted = st.form_submit_button(
+            "Add Tracking Event",
+            type="primary",
+            use_container_width=True,
+        )
+
+    if submitted:
+        if not event_name.strip():
+            st.warning("Event name is required.")
+            return
+
+        add_shipment_tracking_event(
+            shipment.id,
+            {
+                "event_code": event_name.upper().replace(" ", "_"),
+                "event_name": event_name.strip(),
+                "event_description": description.strip() or None,
+                "location_name": location_name.strip() or None,
+                "city": None,
+                "country": country.strip() or None,
+                "port_code": None,
+                "latitude": None,
+                "longitude": None,
+                "event_time": event_time.strip(),
+                "source_type": source_type,
+                "source_reference": shipment.tracking_number,
+                "external_tracking_id": None,
+                "vessel_name": vessel_name.strip() or None,
+                "voyage_number": voyage_number.strip() or None,
+                "is_exception": int(is_exception),
+                "exception_reason": exception_reason.strip() or None,
+                "recorded_by": None,
+            },
+        )
+        st.success("Tracking event added.")
+        st.rerun()
+
+
+def show_analytics() -> None:
+    st.subheader("Shipment Analytics")
+    analytics = get_shipment_analytics()
+    summary = analytics.get("summary") or {}
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric(
+        "Average Transit Time",
+        f"{summary.get('average_transit_days') or 0} days",
+    )
+    col2.metric(
+        "Delayed Shipments",
+        int(summary.get("delayed_shipments") or 0),
+    )
+    col3.metric(
+        "Average Delay",
+        f"{summary.get('average_delay_days') or 0} days",
+    )
+    col4.metric(
+        "Total Shipment Cost",
+        f"AUD {float(summary.get('total_shipment_cost') or 0):,.0f}",
+    )
+    col5.metric(
+        "Total Shipment Value",
+        f"AUD {float(summary.get('total_shipment_value') or 0):,.0f}",
+    )
+
+    country_rows = analytics.get("country_performance") or []
+    line_rows = analytics.get("shipping_line_performance") or []
+    cost_rows = analytics.get("cost_analysis") or []
+
+    left, right = st.columns(2)
+    with left:
+        st.markdown("### Country Performance")
+        if country_rows:
+            country_df = pd.DataFrame(country_rows)
+            st.dataframe(
+                country_df,
+                hide_index=True,
+                use_container_width=True,
+            )
+            chart = country_df.set_index("origin_country")[
+                ["shipment_count"]
+            ]
+            st.bar_chart(chart)
+        else:
+            st.info("No country performance data.")
+
+    with right:
+        st.markdown("### Shipping Line Performance")
+        if line_rows:
+            line_df = pd.DataFrame(line_rows)
+            st.dataframe(
+                line_df,
+                hide_index=True,
+                use_container_width=True,
+            )
+            chart = line_df.set_index("shipping_line")[
+                ["on_time_percentage"]
+            ]
+            st.bar_chart(chart)
+        else:
+            st.info("No shipping-line performance data.")
+
+    st.markdown("### Shipment Cost Analysis")
+    if cost_rows:
+        st.dataframe(
+            pd.DataFrame(cost_rows),
+            hide_index=True,
+            use_container_width=True,
+        )
+    else:
+        st.info("No shipment cost data.")
+
+    shipments = get_shipments()
+    delayed = [
+        item for item in shipments
+        if item.status == "Delayed" or item.delay_reason or item.is_overdue
+    ]
+    st.markdown("### Operational Intelligence")
+    if delayed:
+        st.warning(
+            f"{len(delayed)} shipment(s) require attention. Prioritise "
+            "high-risk and urgent records, confirm revised ETA, customs "
+            "requirements and customer delivery impact."
+        )
+    elif shipments:
+        st.success(
+            "Current shipment portfolio has no recorded delay exceptions."
+        )
+    else:
+        st.info("Create shipments to generate operational intelligence.")
+
+
+def _select_shipment(key: str) -> Shipment | None:
+    shipments = get_shipments()
+    if not shipments:
+        st.info("Create a shipment first.")
+        return None
+
+    return st.selectbox(
+        "Shipment",
+        shipments,
+        format_func=lambda item: (
+            f"{item.shipment_number} — {item.product_name} — {item.status}"
+        ),
+        key=key,
+    )
+
+
+def _create_st25_test_shipment() -> tuple[int, str]:
+    existing = [
+        item for item in get_shipments(search="ST25")
+        if item.origin_country.lower() == "vietnam"
+        and "melbourne" in item.destination_location.lower()
+    ]
+    if existing:
+        return int(existing[0].id), existing[0].shipment_number
+
+    shipment_number = generate_shipment_number()
+    today = date.today()
+    etd = today + timedelta(days=7)
+    eta = etd + timedelta(days=24)
+
+    shipment = Shipment(
+        shipment_number=shipment_number,
+        shipment_type="Import Shipment",
+        status="Booked",
+        rfq_id=None,
+        supplier_quote_id=None,
+        logistics_quote_id=None,
+        warehouse_quote_id=None,
+        supplier_name="Mekong Delta Premium Foods JSC",
+        logistics_provider="Dawlat Global Freight Partner",
+        warehouse_name="Melbourne Food-Grade 3PL Warehouse",
+        product_name="ST25 Premium Fragrant Rice",
+        cargo_description=(
+            "Vietnamese ST25 premium fragrant rice packed in "
+            "25 kg food-grade PP export bags."
+        ),
+        quantity=20.0,
+        unit="metric tonnes",
+        gross_weight_kg=20400.0,
+        volume_cbm=32.0,
+        origin_country="Vietnam",
+        origin_location="Cat Lai Port, Ho Chi Minh City",
+        destination_country="Australia",
+        destination_location="Port of Melbourne, Victoria",
+        transport_mode="Sea Freight",
+        service_type="Port to Door",
+        incoterm="CIF",
+        container_type="20ft General Purpose",
+        booking_number="DG-ST25-BOOK-001",
+        bill_of_lading_number="BL-VNSGN-AUMEL-26001",
+        airway_bill_number=None,
+        container_number="MSCU1234567",
+        seal_number="DG260715",
+        tracking_number="DG-ST25-2026-001",
+        carrier_name="MSC",
+        vessel_name="MSC Melbourne Star",
+        voyage_number="MS2607S",
+        flight_number=None,
+        planned_pickup_date=(today + timedelta(days=3)).isoformat(),
+        actual_pickup_date=None,
+        etd=etd.isoformat(),
+        actual_departure_date=None,
+        eta=eta.isoformat(),
+        actual_arrival_date=None,
+        customs_clearance_date=None,
+        warehouse_delivery_date=None,
+        customs_status="Not Started",
+        biosecurity_status="Documents Submitted",
+        inspection_status="Not Required",
+        document_status="Partially Complete",
+        commercial_invoice_received=True,
+        packing_list_received=True,
+        bill_of_lading_received=False,
+        certificate_of_origin_received=True,
+        phytosanitary_received=True,
+        fumigation_received=True,
+        insurance_certificate_received=True,
+        import_permit_received=False,
+        other_documents=(
+            "Rice quality certificate and laboratory test report pending review."
+        ),
+        currency="AUD",
+        goods_value=32500.0,
+        freight_cost=3850.0,
+        insurance_cost=420.0,
+        customs_cost=650.0,
+        biosecurity_cost=780.0,
+        port_cost=1450.0,
+        local_delivery_cost=890.0,
+        storage_cost=600.0,
+        other_costs=350.0,
+        delay_reason=None,
+        risk_level="Medium",
+        priority="High",
+        inventory_received=False,
+        notes=(
+            "Enterprise Phase 9 test shipment from Ho Chi Minh City "
+            "to Melbourne. Use this record to test every shipment screen."
+        ),
+    )
+    shipment_id = create_shipment(shipment)
+
+    test_milestones = [
+        (
+            "Booking Confirmed",
+            today.isoformat(),
+            "Completed",
+            "Ho Chi Minh City",
+            "Booking confirmed with shipping line.",
+        ),
+        (
+            "Cargo Ready",
+            (today + timedelta(days=2)).isoformat(),
+            "Planned",
+            "Supplier Factory, Vietnam",
+            "ST25 rice packed and ready for container loading.",
+        ),
+        (
+            "Container Loaded",
+            (today + timedelta(days=5)).isoformat(),
+            "Planned",
+            "Cat Lai Port",
+            "Container loading and seal verification.",
+        ),
+        (
+            "Departed Origin",
+            etd.isoformat(),
+            "Planned",
+            "Cat Lai Port",
+            "Vessel departure for Melbourne.",
+        ),
+        (
+            "Arrived Destination",
+            eta.isoformat(),
+            "Planned",
+            "Port of Melbourne",
+            "Planned arrival and import clearance.",
+        ),
+    ]
+
+    for milestone_type, milestone_date, status, location, description in test_milestones:
+        create_shipment_milestone(
+            ShipmentMilestone(
+                shipment_id=shipment_id,
+                milestone_type=milestone_type,
+                milestone_date=milestone_date,
+                status=status,
+                location=location,
+                description=description,
+                responsible_party="Dawlat Global Operations",
+                reference_number=shipment_number,
+                notes=None,
+            )
+        )
+
+    return shipment_id, shipment_number
+
+
+def _safe_index(options: list[str], value: str | None) -> int:
+    return options.index(value) if value in options else 0
+
+
+def _apply_enterprise_styles() -> None:
+    st.markdown(
+        """
+        <style>
+        .block-container {
+            padding-top: 1.6rem;
+            padding-bottom: 3rem;
+        }
+        [data-testid="stMetric"] {
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: rgba(128, 128, 128, 0.04);
+        }
+        [data-testid="stMetricLabel"] {
+            font-weight: 600;
+        }
+        div[data-baseweb="tab-list"] {
+            gap: 0.35rem;
+        }
+        div[data-baseweb="tab"] {
+            border-radius: 10px 10px 0 0;
+            padding-left: 0.9rem;
+            padding-right: 0.9rem;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )

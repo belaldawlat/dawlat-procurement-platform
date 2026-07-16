@@ -1,7 +1,14 @@
 import streamlit as st
+from dotenv import load_dotenv
 
 from database.setup import create_database
 from services.auth_service import ensure_admin_user
+from services.global_search_provider import (
+    configure_global_search_provider,
+)
+from services.tavily_search_provider import (
+    create_tavily_provider,
+)
 from views import (
     ai_assistant,
     customers,
@@ -26,6 +33,22 @@ from views import (
 )
 
 
+def configure_live_search() -> None:
+    """
+    Load environment variables and configure Tavily when available.
+
+    If the API key is missing, the application continues safely with
+    live global search disabled.
+    """
+
+    load_dotenv()
+
+    provider = create_tavily_provider()
+
+    if provider.is_configured:
+        configure_global_search_provider(provider)
+
+
 st.set_page_config(
     page_title="Dawlat Procurement Platform",
     page_icon="🌍",
@@ -33,6 +56,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+configure_live_search()
 create_database()
 ensure_admin_user()
 
