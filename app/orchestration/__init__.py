@@ -1,5 +1,25 @@
 """Enterprise workflow orchestration package."""
 
+from app.orchestration.approval_engine import (
+    ApprovalDecisionResult,
+    ApprovalEngine,
+    get_approval_engine,
+)
+from app.orchestration.approval_models import (
+    ApprovalDecision,
+    ApprovalDecisionType,
+    ApprovalRequest,
+    ApprovalStatus,
+    ApprovalSubjectType,
+)
+from app.orchestration.approval_policy import (
+    ApprovalPolicy,
+    ApprovalPolicyViolation,
+)
+from app.orchestration.approval_store import (
+    InMemoryApprovalStore,
+    get_approval_store,
+)
 from app.orchestration.exceptions import (
     DuplicateWorkflowError,
     WorkflowError,
@@ -74,10 +94,20 @@ from app.orchestration.workflow_validation import (
 
 
 __all__ = [
+    "ApprovalDecision",
+    "ApprovalDecisionResult",
+    "ApprovalDecisionType",
+    "ApprovalEngine",
+    "ApprovalPolicy",
+    "ApprovalPolicyViolation",
+    "ApprovalRequest",
+    "ApprovalStatus",
+    "ApprovalSubjectType",
     "DuplicateWorkflowError",
     "ExecutionOutcome",
     "ExecutionStore",
     "FailureStrategy",
+    "InMemoryApprovalStore",
     "InMemoryExecutionStore",
     "StepExecutionRecord",
     "StepExecutor",
@@ -111,6 +141,8 @@ __all__ = [
     "WorkflowValidationResult",
     "build_default_transition_policy",
     "create_workflow_context",
+    "get_approval_engine",
+    "get_approval_store",
     "get_default_transition_policy",
     "get_execution_store",
     "get_workflow_context",
