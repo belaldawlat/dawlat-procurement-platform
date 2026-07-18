@@ -20,6 +20,29 @@ from app.orchestration.approval_store import (
     InMemoryApprovalStore,
     get_approval_store,
 )
+from app.orchestration.compensation_engine import (
+    CompensationEngine,
+    CompensationExecutionResult,
+    CompensationHandler,
+    CompensationHandlerRegistry,
+    get_compensation_engine,
+)
+from app.orchestration.compensation_models import (
+    CompensationFailureStrategy,
+    CompensationPlan,
+    CompensationStatus,
+    CompensationStepDefinition,
+    CompensationStepRecord,
+    CompensationStepStatus,
+)
+from app.orchestration.compensation_policy import (
+    CompensationPolicy,
+    CompensationPolicyViolation,
+)
+from app.orchestration.compensation_store import (
+    InMemoryCompensationStore,
+    get_compensation_store,
+)
 from app.orchestration.exceptions import (
     DuplicateWorkflowError,
     WorkflowError,
@@ -103,11 +126,24 @@ __all__ = [
     "ApprovalRequest",
     "ApprovalStatus",
     "ApprovalSubjectType",
+    "CompensationEngine",
+    "CompensationExecutionResult",
+    "CompensationFailureStrategy",
+    "CompensationHandler",
+    "CompensationHandlerRegistry",
+    "CompensationPlan",
+    "CompensationPolicy",
+    "CompensationPolicyViolation",
+    "CompensationStatus",
+    "CompensationStepDefinition",
+    "CompensationStepRecord",
+    "CompensationStepStatus",
     "DuplicateWorkflowError",
     "ExecutionOutcome",
     "ExecutionStore",
     "FailureStrategy",
     "InMemoryApprovalStore",
+    "InMemoryCompensationStore",
     "InMemoryExecutionStore",
     "StepExecutionRecord",
     "StepExecutor",
@@ -143,6 +179,8 @@ __all__ = [
     "create_workflow_context",
     "get_approval_engine",
     "get_approval_store",
+    "get_compensation_engine",
+    "get_compensation_store",
     "get_default_transition_policy",
     "get_execution_store",
     "get_workflow_context",
