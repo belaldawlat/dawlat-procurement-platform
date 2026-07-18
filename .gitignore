@@ -6,3 +6,6 @@ data/*.db
 logs/
 storage/
 .streamlit/secrets.toml
+*.db
+*.sqlite
+*.sqlite3

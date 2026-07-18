@@ -1,0 +1,1005 @@
+{
+  "passed": false,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "check": "Git Ignore",
+      "message": "Missing ignore rule: *.db",
+      "path": ".gitignore",
+      "line": null,
+      "remediation": "Add `*.db` to .gitignore."
+    },
+    {
+      "severity": "CRITICAL",
+      "check": "Git Ignore",
+      "message": "Missing ignore rule: *.sqlite",
+      "path": ".gitignore",
+      "line": null,
+      "remediation": "Add `*.sqlite` to .gitignore."
+    },
+    {
+      "severity": "CRITICAL",
+      "check": "Git Ignore",
+      "message": "Missing ignore rule: *.sqlite3",
+      "path": ".gitignore",
+      "line": null,
+      "remediation": "Add `*.sqlite3` to .gitignore."
+    },
+    {
+      "severity": "WARNING",
+      "check": "Duplicate Modules",
+      "message": "Duplicate Python filename `landed_cost.py` exists.",
+      "path": "app\\models\\landed_cost.py",
+      "line": null,
+      "remediation": "Check for accidental copies or ambiguous imports."
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: a\u0000l\u0000t\u0000a\u0000i\u0000r\u0000=\u0000=\u00006\u0000.\u00002\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000a\u0000n\u0000n\u0000o\u0000t\u0000a\u0000t\u0000e\u0000d\u0000-\u0000t\u0000y\u0000p\u0000e\u0000s\u0000=\u0000=\u00000\u0000.\u00007\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000a\u0000n\u0000y\u0000i\u0000o\u0000=\u0000=\u00004\u0000.\u00001\u00004\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000a\u0000t\u0000t\u0000r\u0000s\u0000=\u0000=\u00002\u00006\u0000.\u00001\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000b\u0000c\u0000r\u0000y\u0000p\u0000t\u0000=\u0000=\u00005\u0000.\u00000\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000b\u0000l\u0000i\u0000n\u0000k\u0000e\u0000r\u0000=\u0000=\u00001\u0000.\u00009\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000c\u0000a\u0000c\u0000h\u0000e\u0000t\u0000o\u0000o\u0000l\u0000s\u0000=\u0000=\u00007\u0000.\u00001\u0000.\u00004\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000c\u0000e\u0000r\u0000t\u0000i\u0000f\u0000i\u0000=\u0000=\u00002\u00000\u00002\u00006\u0000.\u00006\u0000.\u00001\u00007\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000c\u0000h\u0000a\u0000r\u0000s\u0000e\u0000t\u0000-\u0000n\u0000o\u0000r\u0000m\u0000a\u0000l\u0000i\u0000z\u0000e\u0000r\u0000=\u0000=\u00003\u0000.\u00004\u0000.\u00009\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000c\u0000l\u0000i\u0000c\u0000k\u0000=\u0000=\u00008\u0000.\u00004\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000c\u0000o\u0000l\u0000o\u0000r\u0000a\u0000m\u0000a\u0000=\u0000=\u00000\u0000.\u00004\u0000.\u00006\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000d\u0000i\u0000s\u0000t\u0000r\u0000o\u0000=\u0000=\u00001\u0000.\u00009\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000g\u0000i\u0000t\u0000d\u0000b\u0000=\u0000=\u00004\u0000.\u00000\u0000.\u00001\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000G\u0000i\u0000t\u0000P\u0000y\u0000t\u0000h\u0000o\u0000n\u0000=\u0000=\u00003\u0000.\u00001\u0000.\u00005\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000h\u00001\u00001\u0000=\u0000=\u00000\u0000.\u00001\u00006\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000h\u0000t\u0000t\u0000p\u0000c\u0000o\u0000r\u0000e\u0000=\u0000=\u00001\u0000.\u00000\u0000.\u00009\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000h\u0000t\u0000t\u0000p\u0000t\u0000o\u0000o\u0000l\u0000s\u0000=\u0000=\u00000\u0000.\u00008\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000h\u0000t\u0000t\u0000p\u0000x\u0000=\u0000=\u00000\u0000.\u00002\u00008\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000i\u0000d\u0000n\u0000a\u0000=\u0000=\u00003\u0000.\u00001\u00008\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000i\u0000t\u0000s\u0000d\u0000a\u0000n\u0000g\u0000e\u0000r\u0000o\u0000u\u0000s\u0000=\u0000=\u00002\u0000.\u00002\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000J\u0000i\u0000n\u0000j\u0000a\u00002\u0000=\u0000=\u00003\u0000.\u00001\u0000.\u00006\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000j\u0000i\u0000t\u0000e\u0000r\u0000=\u0000=\u00000\u0000.\u00001\u00006\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000j\u0000s\u0000o\u0000n\u0000s\u0000c\u0000h\u0000e\u0000m\u0000a\u0000=\u0000=\u00004\u0000.\u00002\u00006\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000j\u0000s\u0000o\u0000n\u0000s\u0000c\u0000h\u0000e\u0000m\u0000a\u0000-\u0000s\u0000p\u0000e\u0000c\u0000i\u0000f\u0000i\u0000c\u0000a\u0000t\u0000i\u0000o\u0000n\u0000s\u0000=\u0000=\u00002\u00000\u00002\u00005\u0000.\u00009\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000M\u0000a\u0000r\u0000k\u0000u\u0000p\u0000S\u0000a\u0000f\u0000e\u0000=\u0000=\u00003\u0000.\u00000\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000n\u0000a\u0000r\u0000w\u0000h\u0000a\u0000l\u0000s\u0000=\u0000=\u00002\u0000.\u00002\u00003\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000n\u0000u\u0000m\u0000p\u0000y\u0000=\u0000=\u00002\u0000.\u00005\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000o\u0000p\u0000e\u0000n\u0000a\u0000i\u0000=\u0000=\u00002\u0000.\u00004\u00005\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000a\u0000c\u0000k\u0000a\u0000g\u0000i\u0000n\u0000g\u0000=\u0000=\u00002\u00006\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000a\u0000n\u0000d\u0000a\u0000s\u0000=\u0000=\u00003\u0000.\u00000\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000i\u0000l\u0000l\u0000o\u0000w\u0000=\u0000=\u00001\u00002\u0000.\u00003\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000r\u0000o\u0000t\u0000o\u0000b\u0000u\u0000f\u0000=\u0000=\u00007\u0000.\u00003\u00005\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000a\u0000r\u0000r\u0000o\u0000w\u0000=\u0000=\u00002\u00005\u0000.\u00000\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000d\u0000a\u0000n\u0000t\u0000i\u0000c\u0000=\u0000=\u00002\u0000.\u00001\u00003\u0000.\u00004\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000d\u0000a\u0000n\u0000t\u0000i\u0000c\u0000_\u0000c\u0000o\u0000r\u0000e\u0000=\u0000=\u00002\u0000.\u00004\u00006\u0000.\u00004\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000d\u0000e\u0000c\u0000k\u0000=\u0000=\u00000\u0000.\u00009\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000t\u0000h\u0000o\u0000n\u0000-\u0000d\u0000a\u0000t\u0000e\u0000u\u0000t\u0000i\u0000l\u0000=\u0000=\u00002\u0000.\u00009\u0000.\u00000\u0000.\u0000p\u0000o\u0000s\u0000t\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000t\u0000h\u0000o\u0000n\u0000-\u0000d\u0000o\u0000t\u0000e\u0000n\u0000v\u0000=\u0000=\u00001\u0000.\u00002\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000p\u0000y\u0000t\u0000h\u0000o\u0000n\u0000-\u0000m\u0000u\u0000l\u0000t\u0000i\u0000p\u0000a\u0000r\u0000t\u0000=\u0000=\u00000\u0000.\u00000\u0000.\u00003\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000r\u0000e\u0000f\u0000e\u0000r\u0000e\u0000n\u0000c\u0000i\u0000n\u0000g\u0000=\u0000=\u00000\u0000.\u00003\u00007\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000r\u0000e\u0000q\u0000u\u0000e\u0000s\u0000t\u0000s\u0000=\u0000=\u00002\u0000.\u00003\u00004\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000r\u0000p\u0000d\u0000s\u0000-\u0000p\u0000y\u0000=\u0000=\u00002\u00000\u00002\u00006\u0000.\u00006\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000s\u0000i\u0000x\u0000=\u0000=\u00001\u0000.\u00001\u00007\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000s\u0000m\u0000m\u0000a\u0000p\u0000=\u0000=\u00005\u0000.\u00000\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000s\u0000n\u0000i\u0000f\u0000f\u0000i\u0000o\u0000=\u0000=\u00001\u0000.\u00003\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000s\u0000t\u0000a\u0000r\u0000l\u0000e\u0000t\u0000t\u0000e\u0000=\u0000=\u00001\u0000.\u00003\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000s\u0000t\u0000r\u0000e\u0000a\u0000m\u0000l\u0000i\u0000t\u0000=\u0000=\u00001\u0000.\u00005\u00009\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000e\u0000n\u0000a\u0000c\u0000i\u0000t\u0000y\u0000=\u0000=\u00009\u0000.\u00001\u0000.\u00004\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000o\u0000m\u0000l\u0000=\u0000=\u00000\u0000.\u00001\u00000\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000q\u0000d\u0000m\u0000=\u0000=\u00004\u0000.\u00006\u00008\u0000.\u00004\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000y\u0000p\u0000i\u0000n\u0000g\u0000-\u0000i\u0000n\u0000s\u0000p\u0000e\u0000c\u0000t\u0000i\u0000o\u0000n\u0000=\u0000=\u00000\u0000.\u00004\u0000.\u00002\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000y\u0000p\u0000i\u0000n\u0000g\u0000_\u0000e\u0000x\u0000t\u0000e\u0000n\u0000s\u0000i\u0000o\u0000n\u0000s\u0000=\u0000=\u00004\u0000.\u00001\u00006\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000t\u0000z\u0000d\u0000a\u0000t\u0000a\u0000=\u0000=\u00002\u00000\u00002\u00006\u0000.\u00003\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000u\u0000r\u0000l\u0000l\u0000i\u0000b\u00003\u0000=\u0000=\u00002\u0000.\u00007\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000u\u0000v\u0000i\u0000c\u0000o\u0000r\u0000n\u0000=\u0000=\u00000\u0000.\u00005\u00001\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000w\u0000a\u0000t\u0000c\u0000h\u0000d\u0000o\u0000g\u0000=\u0000=\u00006\u0000.\u00000\u0000.\u00000\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000w\u0000e\u0000b\u0000s\u0000o\u0000c\u0000k\u0000e\u0000t\u0000s\u0000=\u0000=\u00001\u00006\u0000.\u00001\u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Dependencies",
+      "message": "Dependency is not pinned exactly: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "HIGH",
+      "check": "Dependencies",
+      "message": "Duplicate dependency entry: \u0000",
+      "path": "requirements.txt",
+      "line": null,
+      "remediation": ""
+    },
+    {
+      "severity": "WARNING",
+      "check": "Environment Template",
+      "message": "`ADMIN_FULL_NAME` exists in .env but not .env.example.",
+      "path": ".env.example",
+      "line": null,
+      "remediation": "Add the variable name with a safe placeholder."
+    },
+    {
+      "severity": "WARNING",
+      "check": "Environment Template",
+      "message": "`ADMIN_PASSWORD` exists in .env but not .env.example.",
+      "path": ".env.example",
+      "line": null,
+      "remediation": "Add the variable name with a safe placeholder."
+    },
+    {
+      "severity": "WARNING",
+      "check": "Environment Template",
+      "message": "`ADMIN_USERNAME` exists in .env but not .env.example.",
+      "path": ".env.example",
+      "line": null,
+      "remediation": "Add the variable name with a safe placeholder."
+    },
+    {
+      "severity": "WARNING",
+      "check": "Environment Template",
+      "message": "`TAVILY_API_KEY` exists in .env but not .env.example.",
+      "path": ".env.example",
+      "line": null,
+      "remediation": "Add the variable name with a safe placeholder."
+    },
+    {
+      "severity": "HIGH",
+      "check": "Git Status",
+      "message": "Repository has uncommitted changes.",
+      "path": null,
+      "line": null,
+      "remediation": "Review, test and commit approved changes before freezing."
+    }
+  ]
+}
