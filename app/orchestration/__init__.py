@@ -1,4 +1,5 @@
 """Enterprise workflow orchestration package."""
+
 from app.orchestration.approval_engine import ApprovalDecisionResult, ApprovalEngine, get_approval_engine
 from app.orchestration.approval_models import ApprovalDecision, ApprovalDecisionType, ApprovalRequest, ApprovalStatus, ApprovalSubjectType
 from app.orchestration.approval_policy import ApprovalPolicy, ApprovalPolicyViolation
@@ -11,6 +12,10 @@ from app.orchestration.exceptions import DuplicateWorkflowError, WorkflowError, 
 from app.orchestration.execution_engine import WorkflowExecutionEngine, get_workflow_execution_engine
 from app.orchestration.execution_result import ExecutionOutcome, StepExecutionRecord, WorkflowExecutionResult
 from app.orchestration.execution_store import ExecutionStore, InMemoryExecutionStore, get_execution_store
+from app.orchestration.procurement_decision_engine import ProcurementDecisionEngine, get_procurement_decision_engine
+from app.orchestration.procurement_decision_models import DecisionCategory, DecisionFinding, DecisionSeverity, ProcurementDecision, ProcurementDecisionContext
+from app.orchestration.procurement_decision_policy import ProcurementDecisionPolicy
+from app.orchestration.procurement_decision_result import ProcurementDecisionResult
 from app.orchestration.procurement_engine import ProcurementEngine, get_procurement_engine
 from app.orchestration.procurement_events import ProcurementEvent
 from app.orchestration.procurement_models import BuyerDemand, BuyerReadiness, ProcurementCase, ProcurementStatus, QuotationCompliance, SupplierQuotation
