@@ -117,3 +117,82 @@ from app.orchestration.enterprise_decision_recommendation import EnterpriseDecis
 from app.orchestration.enterprise_decision_registry import EnterpriseDecisionEvaluator, EnterpriseDecisionRegistry, get_enterprise_decision_registry
 from app.orchestration.enterprise_decision_result import EnterpriseDecisionEngineResult
 from app.orchestration.enterprise_decision_store import EnterpriseDecisionStore, get_enterprise_decision_store
+from app.orchestration.enterprise_execution_checkpoint import EnterpriseExecutionCheckpoint, EnterpriseExecutionCheckpointStore, get_enterprise_execution_checkpoint_store
+from app.orchestration.enterprise_execution_coordinator import EnterpriseExecutionCoordinator
+from app.orchestration.enterprise_execution_event_bridge import EnterpriseExecutionEvent, EnterpriseExecutionEventBridge
+from app.orchestration.enterprise_execution_intelligence import EnterpriseExecutionIntelligence, get_enterprise_execution_intelligence
+from app.orchestration.enterprise_execution_models import EnterpriseExecution, EnterpriseExecutionMode, EnterpriseExecutionPriority, EnterpriseExecutionSideEffect, EnterpriseExecutionStatus, EnterpriseExecutionStep, EnterpriseExecutionStepStatus
+from app.orchestration.enterprise_execution_policy import EnterpriseExecutionPolicy
+from app.orchestration.enterprise_execution_recovery import EnterpriseExecutionRecovery, EnterpriseExecutionRecoveryHandler, EnterpriseExecutionRecoveryResult
+from app.orchestration.enterprise_execution_registry import EnterpriseExecutionHandler, EnterpriseExecutionRegistry, get_enterprise_execution_registry
+from app.orchestration.enterprise_execution_result import EnterpriseExecutionIssue, EnterpriseExecutionIssueSeverity, EnterpriseExecutionResult, EnterpriseExecutionStepResult
+from app.orchestration.enterprise_execution_store import EnterpriseExecutionStore, get_enterprise_execution_store
+from app.orchestration.enterprise_execution_telemetry import EnterpriseExecutionTelemetry, EnterpriseExecutionTelemetryRecord, get_enterprise_execution_telemetry
+
+# Package V - Enterprise Workflow Intelligence
+from app.orchestration.enterprise_workflow_models import (
+    EnterpriseWorkflow,
+    EnterpriseWorkflowApprovalMode,
+    EnterpriseWorkflowPriority,
+    EnterpriseWorkflowStage,
+    EnterpriseWorkflowStageStatus,
+    EnterpriseWorkflowStatus,
+    EnterpriseWorkflowTask,
+    EnterpriseWorkflowTaskStatus,
+)
+from app.orchestration.enterprise_workflow_store import (
+    EnterpriseWorkflowStore,
+    EnterpriseWorkflowStoreQuery,
+    EnterpriseWorkflowStoreRecord,
+    get_enterprise_workflow_store,
+)
+from app.orchestration.enterprise_workflow_approval import (
+    EnterpriseWorkflowApprovalDecision,
+    EnterpriseWorkflowApprovalManager,
+    EnterpriseWorkflowApprovalRequest,
+    EnterpriseWorkflowApprovalResult,
+    EnterpriseWorkflowApprovalStatus,
+    EnterpriseWorkflowApprovalSubjectType,
+    EnterpriseWorkflowApprovalVote,
+    get_enterprise_workflow_approval_manager,
+)
+from app.orchestration.enterprise_workflow_transition import (
+    EnterpriseWorkflowTransitionEngine,
+    EnterpriseWorkflowTransitionEvent,
+    EnterpriseWorkflowTransitionOutcome,
+    EnterpriseWorkflowTransitionRequest,
+    EnterpriseWorkflowTransitionResult,
+    EnterpriseWorkflowTransitionSubjectType,
+    get_enterprise_workflow_transition_engine,
+)
+from app.orchestration.enterprise_workflow_analytics import (
+    EnterpriseWorkflowAnalytics,
+    EnterpriseWorkflowApprovalMetrics,
+    EnterpriseWorkflowBottleneck,
+    EnterpriseWorkflowHealthReport,
+    EnterpriseWorkflowPortfolioReport,
+    EnterpriseWorkflowStageMetrics,
+    EnterpriseWorkflowTaskMetrics,
+    EnterpriseWorkflowTransitionMetrics,
+    get_enterprise_workflow_analytics,
+)
+from app.orchestration.enterprise_workflow_coordinator import (
+    EnterpriseWorkflowCommandContext,
+    EnterpriseWorkflowCoordinator,
+    EnterpriseWorkflowCoordinatorEvent,
+    EnterpriseWorkflowCoordinatorOperation,
+    EnterpriseWorkflowCoordinatorOutcome,
+    EnterpriseWorkflowCoordinatorResult,
+    get_enterprise_workflow_coordinator,
+)
+from app.orchestration.enterprise_workflow_intelligence import (
+    EnterpriseWorkflowIntelligence,
+    EnterpriseWorkflowIntelligenceCategory,
+    EnterpriseWorkflowIntelligenceFinding,
+    EnterpriseWorkflowIntelligenceReport,
+    EnterpriseWorkflowIntelligenceSeverity,
+    EnterpriseWorkflowPortfolioIntelligenceReport,
+    EnterpriseWorkflowRecommendedAction,
+    EnterpriseWorkflowRecommendedActionType,
+    get_enterprise_workflow_intelligence,
+)
